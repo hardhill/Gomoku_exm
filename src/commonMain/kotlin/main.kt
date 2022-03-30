@@ -10,9 +10,14 @@ import com.soywiz.korma.geom.degrees
 import com.soywiz.korma.interpolation.Easing
 
 suspend fun main() = Korge(width = 512, height = 512, bgcolor = Colors["#16281f"]) {
-	var circle = circle(25.0, fill = Colors.DARKRED).xy(200,200)
+	val circle = circle(25.0, fill = Colors.DARKRED).xy(0,0)
+	val box = solidRect(100.0,100.0,Colors.BURLYWOOD).xy(255,255)
 	circle.addUpdater {
 		x++
 		y++
+
+	}
+	box.onCollision({it==circle}) {
+		box.color = Colors.AQUA
 	}
 }
