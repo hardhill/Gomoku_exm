@@ -8,11 +8,21 @@ import com.soywiz.korim.format.*
 import com.soywiz.korio.file.std.*
 import com.soywiz.korma.geom.degrees
 import com.soywiz.korma.interpolation.Easing
+import kotlin.math.round
 
-suspend fun main() = Korge(width = 512, height = 512, bgcolor = Colors["#16281f"]) {
-	var circle = circle(25.0, fill = Colors.DARKRED).xy(200,200)
-	circle.addUpdater {
-		x++
-		y++
-	}
+suspend fun main() = Korge(width = 512, height = 512,
+
+    bgcolor = Colors["#16281f"],
+    virtualHeight = 400,
+    virtualWidth = 400
+    ) {
+    val rect = solidRect(5000.0,5000.0, Colors.DARKVIOLET)
+    val mouseNativeCoords = text("0,0").xy(100,100)
+    val localNativeCoords = text("0,0").xy(100,200)
+    mouseNativeCoords.addUpdater {
+        text = "${round(views.nativeMouseX/2)},${round(views.nativeMouseY/2)}"
+    }
+    localNativeCoords.addUpdater {
+        text = "${round(mouseX)},${round(mouseY)}"
+    }
 }
